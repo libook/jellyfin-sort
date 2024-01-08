@@ -1,0 +1,23 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "runtimeExecutable": "/home/libook/.nvm/current/bin/node",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/src/index.js",
+            "env": {
+                "JELLYFIN_SERVER": "http://192.168.50.49:8096",
+                "JELLYFIN_KEY": "cd1fedb049404c17af7b6026badf50a5",
+                "JELLYFIN_SORT_EMPTY_ONLY": ""
+            }
+        }
+    ]
+}
