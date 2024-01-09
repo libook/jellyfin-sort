@@ -1,13 +1,18 @@
 import { checkEnvironmentVariable } from './util.js';
+import http from 'node:http';
 import { spawn } from 'node:child_process';
 import schedule from 'node-schedule';
 
 // Checking environment variables.
 checkEnvironmentVariable();
 
-const run = () => {
+/**
+ * Run processing program
+ * @param {Array<string>} [itemIdList=[]] - A list of Item ID
+ */
+const run = (itemIdList = []) => {
     //Run processing
-    const child = spawn('node', ['src/index.js']);
+    const child = spawn('node', ['src/index.js', itemIdList.join(',')]);
     child.stdout.on('data', (data) => {
         console.log(`stdout: ${data}`);
     });
@@ -17,9 +22,41 @@ const run = () => {
     });
 
     child.on('close', (code) => {
-        console.log(`Child process exited with code ${code}`);
+        console.log(`Processing program exited with code ${code}`);
     });
 };
+
+if (process.env.JELLYFIN_SORT_HOOK_PORT) {
+    const portNumber = parseInt(process.env.JELLYFIN_SORT_HOOK_PORT);
+    // Create a local server to receive data from
+    const server = http.createServer(async (req, res) => {
+        // Get body from req
+        const request = await new Promise((resolve, reject) => {
+            let data = '';
+            req.on('data', chunk => data += chunk);
+            req.on('end', () => {
+                try {
+                    const requestJson = JSON.parse(data);
+                    resolve(requestJson);
+                } catch (error) {
+                    reject(error);
+                }
+            });
+            req.on('error', reject);
+        }).catch(error => console.error);
+
+        // Respond empty status.
+        res.writeHead(204);
+        res.end();
+
+        // Process item.
+        const itemId = request.ItemId;
+        run([itemId]);
+    });
+
+    server.listen(portNumber);
+    console.log(`Server listening on ${portNumber}`);
+}
 
 if (process.env.JELLYFIN_SORT_CRON) {
     const cronStringList = process.env.JELLYFIN_SORT_CRON.split(',');

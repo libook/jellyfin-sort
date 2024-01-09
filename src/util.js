@@ -47,6 +47,20 @@ export const checkEnvironmentVariable = () => {
                 return true;
             }
         },
+        "JELLYFIN_SORT_HOOK_PORT": (value) => {
+            // Set a port to recieve hook from Webhook plugin. https://github.com/jellyfin/jellyfin-plugin-webhook
+            // Leave to blank to disable.
+            if (value) {
+                const numberValue = parseInt(value);
+                return (
+                    !isNaN(numberValue)
+                    && numberValue >= 0
+                    && numberValue <= 65535
+                );
+            } else {
+                return true;
+            }
+        }
     };
     for (const environmentVariable in environmentVariableValidatorMap) {
         if (!environmentVariableValidatorMap[environmentVariable](process.env[environmentVariable])) {

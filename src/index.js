@@ -1,4 +1,4 @@
-import {checkEnvironmentVariable} from './util.js';
+import { checkEnvironmentVariable } from './util.js';
 import JellyfinService from './JellyfinService.js';
 import Kuroshiro from 'kuroshiro';
 import KuromojiAnalyzer from 'kuroshiro-analyzer-kuromoji';
@@ -29,12 +29,6 @@ await kuroshiro.init(new KuromojiAnalyzer());
         // Didn't return means this error:
         throw new Error('No administrator user founded, please check your key.');
     })();
-
-
-    // Get libraries
-    const libraryList = await JellyfinService.getLibraryList(user.Id);
-    console.log(`Got libraries ${libraryList.map(library => library.Name).join(', ')}`);
-
 
     /**
      * Modify sort name
@@ -95,24 +89,36 @@ await kuroshiro.init(new KuromojiAnalyzer());
         console.log(`Compleate ${type}, total: ${itemList.length}\tprocessed: ${countProcessed}\tskipped: ${countSkipped}`);
     };
 
-    // Get items from libraries
-    for (const library of libraryList) {
-        if (library.CollectionType === 'music') {
-            // Albums
-            {
-                const itemsResponse = await JellyfinService.getItemList(user.Id, library.Id, 'album');
-                await modifySortNameBatch(itemsResponse.Items, 'Albums');
-            }
-            // Artists
-            {
-                const itemsResponse = await JellyfinService.getItemList(user.Id, library.Id, 'artist');
-                await modifySortNameBatch(itemsResponse.Items, 'Artists');
-            }
-        }
+    const itemIdParameter = process.argv[2];
+    if (itemIdParameter) {
+        // Hook uses paramerter input item ID. Like:
+        // node index.js <ItemId1,ItemId2>
+        const itemIdList = itemIdParameter.split(',');
+        await modifySortNameBatch(itemIdList.map(itemId => ({ "Id": itemId })), 'Hook');
+    } else {
+        // Get libraries
+        const libraryList = await JellyfinService.getLibraryList(user.Id);
+        console.log(`Got libraries ${libraryList.map(library => library.Name).join(', ')}`);
 
-        {
-            const itemsResponse = await JellyfinService.getItemList(user.Id, library.Id);
-            await modifySortNameBatch(itemsResponse.Items, library.Name);
+        // Get items from libraries
+        for (const library of libraryList) {
+            if (library.CollectionType === 'music') {
+                // Albums
+                {
+                    const itemsResponse = await JellyfinService.getItemList(user.Id, library.Id, 'album');
+                    await modifySortNameBatch(itemsResponse.Items, 'Albums');
+                }
+                // Artists
+                {
+                    const itemsResponse = await JellyfinService.getItemList(user.Id, library.Id, 'artist');
+                    await modifySortNameBatch(itemsResponse.Items, 'Artists');
+                }
+            }
+
+            {
+                const itemsResponse = await JellyfinService.getItemList(user.Id, library.Id);
+                await modifySortNameBatch(itemsResponse.Items, library.Name);
+            }
         }
     }
 })().catch(console.error);

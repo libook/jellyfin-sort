@@ -36,7 +36,8 @@
                 "JELLYFIN_SERVER": "http://192.168.50.49:8096",
                 "JELLYFIN_KEY": "cd1fedb049404c17af7b6026badf50a5",
                 "JELLYFIN_SORT_EMPTY_ONLY": "",
-                "JELLYFIN_SORT_CRON": "*/1 * * * *,0 */1 * * *"
+                "JELLYFIN_SORT_CRON": "0 3 * * *,0 */2 * * *",
+                "JELLYFIN_SORT_HOOK_PORT": "8380"
             }
         }
     ]
