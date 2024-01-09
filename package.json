@@ -17,7 +17,6 @@
     "kuroshiro": "^1.2.0",
     "kuroshiro-analyzer-kuromoji": "^1.1.0",
     "p-limit": "^5.0.0",
-    "pinyin-pro": "^3.18.6",
-    "wanakana": "^5.3.1"
+    "pinyin-pro": "^3.18.6"
   }
 }

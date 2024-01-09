@@ -5,7 +5,6 @@ import KuromojiAnalyzer from 'kuroshiro-analyzer-kuromoji';
 import pLimit from 'p-limit';
 import { pinyin } from 'pinyin-pro';
 import transliterate from '@sindresorhus/transliterate';
-import * as wanakana from 'wanakana';
 
 // Checking environment variables.
 checkEnvironmentVariable();
@@ -49,7 +48,6 @@ await kuroshiro.init(new KuromojiAnalyzer());
         } else {
             let forcedSortName = transliterate(itemDetail.Name);
             if (/[ぁ-んァ-ン]/.test(forcedSortName)) {
-                forcedSortName = wanakana.toRomaji(forcedSortName);
                 forcedSortName = await kuroshiro.convert(forcedSortName, { "to": "romaji", "mode": "spaced" });
             } else {
                 forcedSortName = pinyin(forcedSortName, { "toneType": "none", "nonZh": "consecutive" })
