@@ -1,3 +1,4 @@
+import {checkEnvironmentVariable} from './util.js';
 import JellyfinService from './JellyfinService.js';
 import Kuroshiro from 'kuroshiro';
 import KuromojiAnalyzer from 'kuroshiro-analyzer-kuromoji';
@@ -7,18 +8,7 @@ import transliterate from '@sindresorhus/transliterate';
 import * as wanakana from 'wanakana';
 
 // Checking environment variables.
-{
-    const environmentVariableValidatorMap = {
-        "JELLYFIN_SERVER": (value) => (!!value), // Jellyfin server URL
-        "JELLYFIN_KEY": (value) => (!!value), // Jellyfin key
-        "JELLYFIN_SORT_EMPTY_ONLY": () => true, // Only process while sort name is empty. Set to anything to enable. Leave to blank to disable.
-    };
-    for (const environmentVariable in environmentVariableValidatorMap) {
-        if (!environmentVariableValidatorMap[environmentVariable](process.env[environmentVariable])) {
-            throw new Error(`Bad variable ${environmentVariable} with value ${process.env[environmentVariable]}`);
-        }
-    }
-}
+checkEnvironmentVariable();
 
 // Initializing.
 const kuroshiro = new Kuroshiro.default();
