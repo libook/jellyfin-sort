@@ -46,10 +46,17 @@ await kuroshiro.init(new KuromojiAnalyzer());
         if (process.env.JELLYFIN_SORT_EMPTY_ONLY && itemDetail.ForcedSortName) {
             return false;
         } else {
+            // Converting letter systems that have an explicit conversion relationship with the Latin alphabet.
             let forcedSortName = transliterate(itemDetail.Name);
+
+            // Converting Japanese. Rough judgment that anything containing a kana is Japanese.
+            // Avoiding judging the vast majority of Han characters as Japanese, so for the time being,
+            // let the weight of a Han character judged as Chinese be higher than as Japanese.
             if (/[ぁ-んァ-ン]/.test(forcedSortName)) {
+                // Converting Japanese to Romanji.
                 forcedSortName = await kuroshiro.convert(forcedSortName, { "to": "romaji", "mode": "spaced" });
             } else {
+                // Converting Chinese to Pinyin.
                 forcedSortName = pinyin(forcedSortName, { "toneType": "none", "nonZh": "consecutive" })
             }
             // console.log(itemDetail.Name, '\t', forcedSortName);
