@@ -97,11 +97,11 @@ export default class {
      */
     static async updateItem(itemId, newItemDetail) {
         return fetch(`${process.env.JELLYFIN_SERVER}/Items/${itemId}?api_key=${process.env.JELLYFIN_KEY}`, {
-            method: "POST",
+            body: JSON.stringify(newItemDetail),
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(newItemDetail),
+            method: "POST",
         })
             .then(fetchErrorHandler);
     }

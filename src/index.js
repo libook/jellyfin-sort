@@ -49,10 +49,10 @@ await kuroshiro.init(new KuromojiAnalyzer());
             // let the weight of a Han character judged as Chinese be higher than as Japanese.
             if (/[ぁ-んァ-ン]/.test(forcedSortName)) {
                 // Converting Japanese to Romanji.
-                forcedSortName = await kuroshiro.convert(forcedSortName, { "to": "romaji", "mode": "spaced" });
+                forcedSortName = await kuroshiro.convert(forcedSortName, { "mode": "spaced", "to": "romaji" });
             } else {
                 // Converting Chinese to Pinyin.
-                forcedSortName = pinyin(forcedSortName, { "toneType": "none", "nonZh": "consecutive" });
+                forcedSortName = pinyin(forcedSortName, { "nonZh": "consecutive", "toneType": "none" });
             }
             // console.log(itemDetail.Name, '\t', forcedSortName);
 
