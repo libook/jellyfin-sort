@@ -51,7 +51,7 @@ await kuroshiro.init(new KuromojiAnalyzer());
                 forcedSortName = await kuroshiro.convert(forcedSortName, { "to": "romaji", "mode": "spaced" });
             } else {
                 // Converting Chinese to Pinyin.
-                forcedSortName = pinyin(forcedSortName, { "toneType": "none", "nonZh": "consecutive" })
+                forcedSortName = pinyin(forcedSortName, { "toneType": "none", "nonZh": "consecutive" });
             }
             // console.log(itemDetail.Name, '\t', forcedSortName);
 
