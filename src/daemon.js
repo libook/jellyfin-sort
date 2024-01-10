@@ -1,7 +1,7 @@
 import { checkEnvironmentVariable } from './util.js';
 import http from 'node:http';
-import { spawn } from 'node:child_process';
 import schedule from 'node-schedule';
+import { spawn } from 'node:child_process';
 
 // Checking environment variables.
 checkEnvironmentVariable();

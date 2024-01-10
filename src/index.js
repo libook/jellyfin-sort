@@ -1,10 +1,10 @@
 import { checkEnvironmentVariable } from './util.js';
 import { cpus } from 'node:os';
 import JellyfinService from './JellyfinService.js';
-import Kuroshiro from 'kuroshiro';
 import KuromojiAnalyzer from 'kuroshiro-analyzer-kuromoji';
-import pLimit from 'p-limit';
+import Kuroshiro from 'kuroshiro';
 import { pinyin } from 'pinyin-pro';
+import pLimit from 'p-limit';
 import transliterate from '@sindresorhus/transliterate';
 
 // Checking environment variables.
