@@ -8,7 +8,8 @@
     "node": "~20.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ."
   },
   "author": "",
   "license": "GPL-3.0",
@@ -22,6 +23,8 @@
     "pinyin-pro": "^3.18.6"
   },
   "devDependencies": {
-    "@types/node": "^20.10.7"
+    "@stylistic/eslint-plugin": "^1.5.3",
+    "@types/node": "^20.10.7",
+    "eslint": "^8.56.0"
   }
 }
