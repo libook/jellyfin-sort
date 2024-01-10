@@ -43,7 +43,7 @@ if (process.env.JELLYFIN_SORT_HOOK_PORT) {
                 }
             });
             req.on('error', reject);
-        }).catch(error => console.error);
+        }).catch(console.error);
 
         // Respond empty status.
         res.writeHead(204);
