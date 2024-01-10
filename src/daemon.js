@@ -51,6 +51,7 @@ if (process.env.JELLYFIN_SORT_HOOK_PORT) {
 
         // Process item.
         const itemId = request.ItemId;
+        console.log(`Trigger hook for Item: ${itemId}`);
         run([itemId]);
     });
 
