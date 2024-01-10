@@ -50,7 +50,7 @@ export default class {
         const queryInfo = {
             "api_key": process.env.JELLYFIN_KEY,
             "ParentId": libraryId,
-        }
+        };
         switch (type) {
             case 'album': {
                 Object.assign(queryInfo, {
@@ -66,6 +66,7 @@ export default class {
                 });
                 break;
             }
+            // no default
         }
         return fetch(`${process.env.JELLYFIN_SERVER}/Users/${userId}/Items?${querystring.stringify(queryInfo)}`)
             .then(fetchErrorHandler)
@@ -104,4 +105,4 @@ export default class {
         })
             .then(fetchErrorHandler);
     }
-};
+}
