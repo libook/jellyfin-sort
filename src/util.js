@@ -26,9 +26,8 @@ export const checkEnvironmentVariable = () => {
      * @type {Object<string, EnvironmentVariableValidator>}
      */
     const environmentVariableValidatorMap = {
-        "JELLYFIN_SERVER": (value) => (Boolean(value)), // Jellyfin server URL
         "JELLYFIN_KEY": (value) => (Boolean(value)), // Jellyfin key
-        "JELLYFIN_SORT_EMPTY_ONLY": () => true, // Only process while sort name is empty. Set to anything to enable. Leave to blank to disable.
+        "JELLYFIN_SERVER": (value) => (Boolean(value)), // Jellyfin server URL
         "JELLYFIN_SORT_CRON": (value) => {
             // Use cron-style expression to define schedule.
             // Using commas to split multiple expressions. e.g. "42 * * * *,18 * * * *"
@@ -47,6 +46,7 @@ export const checkEnvironmentVariable = () => {
                 return true;
             }
         },
+        "JELLYFIN_SORT_EMPTY_ONLY": () => true, // Only process while sort name is empty. Set to anything to enable. Leave to blank to disable.
         "JELLYFIN_SORT_HOOK_PORT": (value) => {
             // Set a port to recieve hook from Webhook plugin. https://github.com/jellyfin/jellyfin-plugin-webhook
             // Leave to blank to disable.
