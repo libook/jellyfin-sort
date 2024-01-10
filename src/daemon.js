@@ -62,7 +62,7 @@ if (process.env.JELLYFIN_SORT_HOOK_PORT) {
 if (process.env.JELLYFIN_SORT_CRON) {
     const cronStringList = process.env.JELLYFIN_SORT_CRON.split(',');
     for (const cronString of cronStringList) {
-        const job = schedule.scheduleJob(cronString, run);
+        schedule.scheduleJob(cronString, run);
         console.log(`Schedule with ${cronString}`);
     }
 } else {
