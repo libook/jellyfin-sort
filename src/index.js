@@ -90,7 +90,8 @@ await kuroshiro.init(new KuromojiAnalyzer());
         console.log(`Compleate ${type}, total: ${itemList.length}\tprocessed: ${countProcessed}\tskipped: ${countSkipped}`);
     };
 
-    const itemIdParameter = process.argv[2];
+    const FIRST_ARGUMENT_INDEX = 2;
+    const itemIdParameter = process.argv[FIRST_ARGUMENT_INDEX];
     if (itemIdParameter) {
         // Hook uses paramerter input item ID. Like:
         // node index.js <ItemId1,ItemId2>

@@ -46,7 +46,8 @@ if (process.env.JELLYFIN_SORT_HOOK_PORT) {
         }).catch(console.error);
 
         // Respond empty status.
-        res.writeHead(204);
+        const STATUS_CODE_NO_CONTENT = 204;
+        res.writeHead(STATUS_CODE_NO_CONTENT);
         res.end();
 
         // Process item.

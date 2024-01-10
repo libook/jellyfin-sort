@@ -66,10 +66,12 @@ export const checkEnvironmentVariable = () => {
             // Leave to blank to disable.
             if (value) {
                 const numberValue = parseInt(value);
+                const POART_MIN = 0;
+                const POART_MAX = 65535;
                 return (
                     !isNaN(numberValue)
-                    && numberValue >= 0
-                    && numberValue <= 65535
+                    && numberValue >= POART_MIN
+                    && numberValue <= POART_MAX
                 );
             } else {
                 return true;
