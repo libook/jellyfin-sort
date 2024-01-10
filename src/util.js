@@ -28,6 +28,20 @@ export const checkEnvironmentVariable = () => {
     const environmentVariableValidatorMap = {
         "JELLYFIN_KEY": (value) => (Boolean(value)), // Jellyfin key
         "JELLYFIN_SERVER": (value) => (Boolean(value)), // Jellyfin server URL
+        "JELLYFIN_SORT_BATCH_LIMIT": (value) => {
+            // Limiting the number of batches for batch processing
+            // Leave to blank to use CPU core number
+            if (value) {
+                const numberValue = parseInt(value);
+                const AT_LEAST = 1;
+                return (
+                    !isNaN(numberValue)
+                    && numberValue >= AT_LEAST
+                );
+            } else {
+                return true;
+            }
+        },
         "JELLYFIN_SORT_CRON": (value) => {
             // Use cron-style expression to define schedule.
             // Using commas to split multiple expressions. e.g. "42 * * * *,18 * * * *"

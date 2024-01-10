@@ -1,4 +1,5 @@
 import { checkEnvironmentVariable } from './util.js';
+import { cpus } from 'node:os';
 import JellyfinService from './JellyfinService.js';
 import Kuroshiro from 'kuroshiro';
 import KuromojiAnalyzer from 'kuroshiro-analyzer-kuromoji';
@@ -76,7 +77,7 @@ await kuroshiro.init(new KuromojiAnalyzer());
     const modifySortNameBatch = async (itemList, type) => {
         let countProcessed = 0;
         let countSkipped = 0;
-        const limit = pLimit(32);
+        const limit = pLimit(process.env.JELLYFIN_SORT_BATCH_LIMIT || cpus().length);
         const task = [];
         for (const item of itemList) {
             task.push(limit(async () => {
