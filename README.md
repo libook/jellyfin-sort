@@ -1,3 +1,7 @@
+<p align="center">
+    <img src="icon.png" width="128" title="Jellyfin Sort icon">
+</p>
+
 # Jellyfin Sort
 
 [中文](./README.zh.md)
